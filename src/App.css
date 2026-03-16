@@ -240,3 +240,99 @@
   color: #446644;
 }
 
+/* ── Mode Toggle ── */
+.mode-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.mode-btn {
+  padding: 10px 28px;
+  background: transparent;
+  border: 2px solid #00FF00;
+  color: #00FF00;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.mode-btn:hover {
+  background: rgba(0, 255, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+}
+
+.mode-btn--active {
+  background: rgba(0, 255, 0, 0.18);
+  box-shadow: 0 0 14px rgba(0, 255, 0, 0.6);
+  font-weight: bold;
+}
+
+/* ── Camera Filter ── */
+.camera-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.camera-video-hidden {
+  display: none;
+}
+
+.camera-canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.camera-canvas {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+}
+
+.camera-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #FF4444;
+  border-radius: 6px;
+  color: #FF6666;
+  background: rgba(255, 0, 0, 0.06);
+  text-align: center;
+}
+
+.stop-btn {
+  padding: 10px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: #FF6666;
+  border: 2px solid #FF6666;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.stop-btn:hover {
+  background: rgba(255, 100, 100, 0.12);
+  box-shadow: 0 0 10px rgba(255, 100, 100, 0.4);
+}
+
+@media (max-width: 600px) {
+  .mode-toggle {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mode-btn {
+    text-align: center;
+  }
+}
+
