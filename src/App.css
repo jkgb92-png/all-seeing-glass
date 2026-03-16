@@ -2,32 +2,112 @@
   background-color: #0F0F0F;
   color: #00FF00;
   font-family: 'Courier New', Courier, monospace;
-  padding: 20px;
+  padding: 24px;
   border: 2px solid #00FF00;
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+  border-radius: 8px;
+  max-width: 1100px;
+  width: 100%;
 }
 
 .header {
-  font-size: 24px;
   text-align: center;
   border-bottom: 1px solid #00FF00;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
 }
 
+.header h1 {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+.subtitle {
+  color: #88FF88;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+/* ── Image Uploader ── */
+.image-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.upload-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  background: transparent;
+  border: 2px solid #00FF00;
+  color: #00FF00;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.upload-btn:hover {
+  background: rgba(0, 255, 0, 0.12);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.image-loaded {
+  color: #00FF00;
+  font-size: 0.9rem;
+}
+
+/* ── Controls ── */
 .controls {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 20px;
+  background: rgba(0, 255, 0, 0.04);
+  border: 1px solid #00880033;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.slider-label {
+  font-size: 0.95rem;
+}
+
+.intensity-value {
+  color: #00FFAA;
+  font-weight: bold;
 }
 
 .filter-slider {
   -webkit-appearance: none;
   width: 100%;
-  height: 10px;
-  background: #444;
-  border-radius: 5px;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 .filter-slider::-webkit-slider-thumb {
@@ -39,10 +119,124 @@
   border: 2px solid #0F0F0F;
   border-radius: 50%;
   cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 255, 0, 0.7);
+}
+
+.filter-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #00FF00;
+  border: 2px solid #0F0F0F;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.apply-btn,
+.download-btn {
+  padding: 10px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.apply-btn {
+  background: #00FF00;
+  color: #0F0F0F;
+  border: 2px solid #00FF00;
+  font-weight: bold;
+}
+
+.apply-btn:hover {
+  background: #00CC00;
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
+}
+
+.download-btn {
+  background: transparent;
+  color: #00FFAA;
+  border: 2px solid #00FFAA;
+}
+
+.download-btn:hover {
+  background: rgba(0, 255, 170, 0.12);
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.4);
+}
+
+/* ── Canvas Area ── */
+.canvas-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.canvas-label {
+  font-size: 0.9rem;
+  color: #88FF88;
+  letter-spacing: 1px;
 }
 
 .canvas {
-  background-color: #1E1E1E;
+  background-color: #1a1a1a;
   border: 1px solid #00FF00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  border-radius: 4px;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #555;
+  border: 1px dashed #333;
+  border-radius: 6px;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.empty-hint {
+  font-size: 0.8rem;
+  color: #444;
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid #1a3a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #446644;
+}
+
