@@ -1,5 +1,7 @@
 # 🔮 All Seeing Glass — Dicyanin Filter
 
+**🌐 Live:** https://jkgb92-png.github.io/all-seeing-glass/
+
 A web application that applies a **dicyanin filter** to images, simulating the effect of the legendary aura-revealing dicyanin dye.
 
 ## Features
