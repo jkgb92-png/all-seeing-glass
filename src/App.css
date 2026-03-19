@@ -336,3 +336,311 @@
   }
 }
 
+/* ── Momentum Dashboard ── */
+.momentum-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 8px 0;
+}
+
+/* Clock */
+.momentum-clock-section {
+  text-align: center;
+}
+
+.momentum-clock {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.momentum-time {
+  font-size: 5rem;
+  font-weight: bold;
+  letter-spacing: 4px;
+  color: #00FF00;
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+  font-variant-numeric: tabular-nums;
+}
+
+.momentum-ampm {
+  font-size: 1.6rem;
+  color: #88FF88;
+  letter-spacing: 1px;
+}
+
+.momentum-date {
+  margin-top: 6px;
+  font-size: 1.05rem;
+  color: #88FF88;
+  letter-spacing: 1px;
+}
+
+/* Greeting */
+.momentum-greeting-section {
+  text-align: center;
+}
+
+.momentum-greeting {
+  font-size: 1.7rem;
+  color: #00FFAA;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+}
+
+.momentum-greeting:hover .momentum-edit-hint,
+.momentum-focus-text:hover .momentum-edit-hint {
+  opacity: 1;
+}
+
+.momentum-edit-hint {
+  font-size: 0.75em;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+/* Focus */
+.momentum-focus-section {
+  text-align: center;
+  border: 1px solid #00880033;
+  border-radius: 6px;
+  padding: 16px 20px;
+  background: rgba(0, 255, 0, 0.03);
+}
+
+.momentum-focus-label {
+  font-size: 0.8rem;
+  color: #557755;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+}
+
+.momentum-focus-text {
+  font-size: 1.25rem;
+  color: #00FFAA;
+  cursor: pointer;
+  margin: 0;
+  min-height: 1.6em;
+}
+
+.momentum-focus-placeholder {
+  color: #446644;
+  font-style: italic;
+}
+
+/* Shared editable row */
+.momentum-name-edit,
+.momentum-focus-edit {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.momentum-text-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #00FF00;
+  color: #00FF00;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  padding: 4px 6px;
+  outline: none;
+  min-width: 200px;
+}
+
+.momentum-focus-input {
+  min-width: 320px;
+  font-size: 1.1rem;
+}
+
+.momentum-save-btn {
+  padding: 5px 14px;
+  background: #00FF00;
+  color: #0F0F0F;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.momentum-save-btn:hover {
+  background: #00CC00;
+}
+
+.momentum-cancel-btn {
+  padding: 5px 10px;
+  background: transparent;
+  color: #888;
+  border: 1px solid #555;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.momentum-cancel-btn:hover {
+  color: #FF6666;
+  border-color: #FF6666;
+}
+
+/* Todo */
+.momentum-todo-section {
+  border: 1px solid #00880033;
+  border-radius: 6px;
+  padding: 16px 20px;
+  background: rgba(0, 255, 0, 0.03);
+}
+
+.momentum-todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.momentum-todo-title {
+  font-size: 0.8rem;
+  color: #557755;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.momentum-clear-done-btn {
+  background: transparent;
+  border: 1px solid #446644;
+  color: #446644;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 3px 10px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.momentum-clear-done-btn:hover {
+  color: #FF6666;
+  border-color: #FF6666;
+}
+
+.momentum-todo-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.momentum-todo-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.momentum-add-btn {
+  padding: 5px 16px;
+  background: transparent;
+  border: 1px solid #00FF00;
+  color: #00FF00;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.momentum-add-btn:hover {
+  background: rgba(0, 255, 0, 0.12);
+}
+
+.momentum-todo-empty {
+  color: #446644;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 0;
+}
+
+.momentum-todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.momentum-todo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #0F2A0F;
+}
+
+.momentum-todo-item:last-child {
+  border-bottom: none;
+}
+
+.momentum-todo-check {
+  background: transparent;
+  border: none;
+  color: #00FF00;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 24px;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.momentum-todo-text {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #00FF00;
+  word-break: break-word;
+}
+
+.momentum-todo-done .momentum-todo-text {
+  text-decoration: line-through;
+  color: #446644;
+}
+
+.momentum-todo-delete {
+  background: transparent;
+  border: none;
+  color: #446644;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.momentum-todo-delete:hover {
+  color: #FF6666;
+}
+
+@media (max-width: 600px) {
+  .momentum-time {
+    font-size: 3.2rem;
+  }
+
+  .momentum-ampm {
+    font-size: 1.1rem;
+  }
+
+  .momentum-greeting {
+    font-size: 1.3rem;
+  }
+
+  .momentum-focus-input {
+    min-width: 200px;
+  }
+}
+
