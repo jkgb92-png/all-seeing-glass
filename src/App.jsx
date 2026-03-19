@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import ImageUploader from './components/ImageUploader';
 import CameraFilter from './components/CameraFilter';
+import MomentumDashboard from './components/MomentumDashboard';
 import './App.css';
 
 const App = () => {
-  const [mode, setMode] = useState('upload'); // 'upload' | 'camera'
+  const [mode, setMode] = useState('momentum'); // 'momentum' | 'upload' | 'camera'
 
   return (
     <div className="app-container">
@@ -14,6 +15,12 @@ const App = () => {
       </header>
 
       <div className="mode-toggle">
+        <button
+          className={`mode-btn${mode === 'momentum' ? ' mode-btn--active' : ''}`}
+          onClick={() => setMode('momentum')}
+        >
+          ⏱ Momentum
+        </button>
         <button
           className={`mode-btn${mode === 'upload' ? ' mode-btn--active' : ''}`}
           onClick={() => setMode('upload')}
@@ -29,7 +36,9 @@ const App = () => {
       </div>
 
       <main>
-        {mode === 'upload' ? <ImageUploader /> : <CameraFilter />}
+        {mode === 'momentum' && <MomentumDashboard />}
+        {mode === 'upload' && <ImageUploader />}
+        {mode === 'camera' && <CameraFilter />}
       </main>
 
       <footer className="footer">
