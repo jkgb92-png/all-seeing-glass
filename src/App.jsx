@@ -42,7 +42,7 @@ const App = () => {
       </main>
 
       <footer className="footer">
-        <p>Dicyanin filter modifies pixel luminance and contrast to simulate the aura-revealing effect</p>
+        <p>Dicyanin (Kilner screen) filter: blocks green/yellow light (≈500–620 nm), passes deep blue/violet (≈400–470 nm) and faint deep red (≈650+ nm), with heightened edge contrast</p>
       </footer>
     </div>
   );
