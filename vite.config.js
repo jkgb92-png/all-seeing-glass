@@ -1,9 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // Use the repo sub-path in production (GitHub Pages) but root in dev to avoid 404s
-  base: process.env.NODE_ENV === 'production' ? '/all-seeing-glass/' : '/',
-  server: { port: 3000, open: true }
+  // Setting base to './' ensures assets are loaded relative to the index.html,
+  // which fixes most 404 errors regardless of the environment.
+  base: './',
+  server: { 
+    port: 3000, 
+    open: true 
+  }
 })
