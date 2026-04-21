@@ -5,10 +5,55 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Seeing Glass</title>
+    <style>
+      #load-error {
+        display: none;
+        background: #0F0F0F;
+        color: #FF4444;
+        font-family: 'Courier New', Courier, monospace;
+        padding: 40px 24px;
+        min-height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        text-align: center;
+      }
+      #load-error h1 { font-size: 2rem; letter-spacing: 2px; margin: 0; }
+      #load-error p { color: #FF8888; max-width: 600px; margin: 0; }
+      #load-error button {
+        background: transparent;
+        border: 1px solid #FF4444;
+        color: #FF4444;
+        font-family: inherit;
+        padding: 8px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="load-error" role="alert" aria-live="assertive">
+      <h1>⚠ Failed to Load</h1>
+      <p>The application could not be loaded. Please check your connection and try refreshing.</p>
+      <button onclick="window.location.reload()">↺ Reload</button>
+    </div>
     <!-- This script tag is critical. It must point to your main.jsx file -->
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Show the fallback error UI if React fails to mount within a reasonable time -->
+    <script>
+      window.addEventListener('load', function () {
+        // 5 s is enough for the module bundle to parse and React to mount even on
+        // slow connections, while still being short enough to give quick feedback.
+        setTimeout(function () {
+          var root = document.getElementById('root');
+          if (root && root.childElementCount === 0) {
+            document.getElementById('load-error').style.display = 'flex';
+          }
+        }, 5000);
+      });
+    </script>
   </body>
 </html>
