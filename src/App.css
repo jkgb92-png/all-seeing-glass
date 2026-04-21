@@ -289,10 +289,33 @@
   gap: 8px;
 }
 
+.camera-canvas-frame {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+}
+
 .camera-canvas {
   width: 100%;
   max-width: 720px;
   height: auto;
+  display: block;
+}
+
+/* Shutter flash overlay */
+.shutter-flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  animation: shutter 0.3s ease-out forwards;
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+@keyframes shutter {
+  0%   { opacity: 0.85; }
+  100% { opacity: 0; }
 }
 
 .camera-error {
@@ -323,6 +346,80 @@
 .stop-btn:hover {
   background: rgba(255, 100, 100, 0.12);
   box-shadow: 0 0 10px rgba(255, 100, 100, 0.4);
+}
+
+/* Picture / snapshot button */
+.snapshot-btn {
+  padding: 10px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: #00FFAA;
+  border: 2px solid #00FFAA;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.snapshot-btn:hover {
+  background: rgba(0, 255, 170, 0.12);
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.4);
+}
+
+/* Record button — start */
+.record-btn {
+  padding: 10px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: #FF4444;
+  border: 2px solid #FF4444;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.record-btn:hover {
+  background: rgba(255, 68, 68, 0.12);
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+/* Record button — stop / active */
+.record-stop-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: rgba(255, 0, 0, 0.14);
+  color: #FF4444;
+  border: 2px solid #FF4444;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.35);
+  transition: background 0.2s;
+}
+
+.record-stop-btn:hover {
+  background: rgba(255, 0, 0, 0.22);
+}
+
+/* Pulsing red dot shown while recording */
+.rec-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FF2222;
+  box-shadow: 0 0 6px #FF2222;
+  animation: rec-pulse 1s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.35; transform: scale(0.75); }
 }
 
 @media (max-width: 600px) {

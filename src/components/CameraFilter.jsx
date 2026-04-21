@@ -5,12 +5,18 @@ const CameraFilter = () => {
   const [intensity, setIntensity] = useState(1.0);
   const [cameraState, setCameraState] = useState('idle'); // idle | requesting | active | error
   const [errorMessage, setErrorMessage] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [shutterFlash, setShutterFlash] = useState(false);
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
   const animFrameRef = useRef(null);
   const filterRef = useRef(new DicyaninFilter(intensity));
+  const mediaRecorderRef = useRef(null);
+  const recordedChunksRef = useRef([]);
+  const recordingTimerRef = useRef(null);
 
   // Update filter intensity in place to avoid unnecessary re-creation
   useEffect(() => {
@@ -87,17 +93,83 @@ const CameraFilter = () => {
     return () => {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       if (streamRef.current) streamRef.current.getTracks().forEach((t) => t.stop());
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop();
+      }
+      if (recordingTimerRef.current) clearInterval(recordingTimerRef.current);
     };
   }, []);
 
   const takeSnapshot = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    // Shutter flash effect
+    setShutterFlash(true);
+    setTimeout(() => setShutterFlash(false), 300);
     const link = document.createElement('a');
-    link.download = 'dicyanin-snapshot.png';
+    link.download = `dicyanin-${Date.now()}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   }, []);
+
+  const startRecording = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const canvasStream = canvas.captureStream(30);
+    // Prefer VP9 webm, fall back to whatever the browser supports.
+    const mimeType = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4']
+      .find((mimeCandidate) => MediaRecorder.isTypeSupported(mimeCandidate)) || '';
+
+    const mediaRecorder = new MediaRecorder(canvasStream, mimeType ? { mimeType } : {});
+    recordedChunksRef.current = [];
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data && e.data.size > 0) {
+        recordedChunksRef.current.push(e.data);
+      }
+    };
+
+    // Allow enough time for the browser to complete the download before revoking.
+    const URL_REVOCATION_DELAY_MS = 10_000;
+
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(recordedChunksRef.current, {
+        type: mediaRecorder.mimeType || 'video/webm',
+      });
+      const url = URL.createObjectURL(blob);
+      const ext = (mediaRecorder.mimeType || '').includes('mp4') ? 'mp4' : 'webm';
+      const link = document.createElement('a');
+      link.download = `dicyanin-recording-${Date.now()}.${ext}`;
+      link.href = url;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), URL_REVOCATION_DELAY_MS);
+    };
+
+    mediaRecorder.start(100); // collect data every 100 ms
+    mediaRecorderRef.current = mediaRecorder;
+    setIsRecording(true);
+    setRecordingTime(0);
+    recordingTimerRef.current = setInterval(() => setRecordingTime((t) => t + 1), 1000);
+  }, []);
+
+  const stopRecording = useCallback(() => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+      mediaRecorderRef.current = null;
+    }
+    if (recordingTimerRef.current) {
+      clearInterval(recordingTimerRef.current);
+      recordingTimerRef.current = null;
+    }
+    setIsRecording(false);
+  }, []);
+
+  const formatTime = (secs) => {
+    const m = String(Math.floor(secs / 60)).padStart(2, '0');
+    const s = String(secs % 60).padStart(2, '0');
+    return `${m}:${s}`;
+  };
 
   return (
     <div className="camera-filter">
@@ -137,9 +209,18 @@ const CameraFilter = () => {
               <button onClick={stopCamera} className="stop-btn">
                 ⏹ Stop Camera
               </button>
-              <button onClick={takeSnapshot} className="download-btn">
-                📸 Snapshot
+              <button onClick={takeSnapshot} className="snapshot-btn">
+                📸 Picture
               </button>
+              {!isRecording ? (
+                <button onClick={startRecording} className="record-btn">
+                  ⏺ Record
+                </button>
+              ) : (
+                <button onClick={stopRecording} className="record-stop-btn">
+                  <span className="rec-dot" /> REC {formatTime(recordingTime)}
+                </button>
+              )}
             </>
           )}
         </div>
@@ -162,7 +243,10 @@ const CameraFilter = () => {
       {cameraState === 'active' && (
         <div className="camera-canvas-wrapper">
           <h3 className="canvas-label">Live — Dicyanin Filter</h3>
-          <canvas ref={canvasRef} className="canvas camera-canvas" />
+          <div className="camera-canvas-frame">
+            <canvas ref={canvasRef} className="canvas camera-canvas" />
+            {shutterFlash && <div className="shutter-flash" />}
+          </div>
         </div>
       )}
 
