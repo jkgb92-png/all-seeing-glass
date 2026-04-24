@@ -4,9 +4,10 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // Absolute base path matching the GitHub Pages project URL so that all
-  // asset references in the built index.html use unambiguous absolute paths
-  // (e.g. /all-seeing-glass/assets/…) regardless of trailing-slash behaviour.
+  // REQUIRED: must match the GitHub Pages sub-path for this repository.
+  // Changing this will break ALL asset and favicon references on the live site.
+  // The repo is served at https://jkgb92-png.github.io/all-seeing-glass/
+  // so base must be '/all-seeing-glass/'.
   base: '/all-seeing-glass/',
   server: { 
     port: 3000, 
